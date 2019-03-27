@@ -21,6 +21,7 @@
       )
         v-btn.grid(
           block
+          :disabled="!isGameReady"
         )
           span(v-if="!isPlayerReady") {{ ((i - 1) * gridsPerRow) + j }}
 </template>
@@ -34,6 +35,14 @@ export default {
   computed: {
     board() {
       return this.$store.state.game.board;
+    },
+
+    isGameReady() {
+      const { board } = this.$store.state.game;
+      const isPlayer1Set = board.indexOf(1) > -1;
+      const isPlayer2Set = board.indexOf(2) > -1;
+
+      return (isPlayer1Set && isPlayer2Set);
     },
   },
   methods: {
