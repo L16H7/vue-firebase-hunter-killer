@@ -17,3 +17,10 @@ export default {
   },
 };
 </script>
+<style>
+@media screen and (max-width: 700px) {
+  .container {
+    padding: 0px !important;
+  }
+}
+</style>

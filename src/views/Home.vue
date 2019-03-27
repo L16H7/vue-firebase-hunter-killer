@@ -1,13 +1,17 @@
 <template lang="pug">
-  v-container
+  v-container(
+    style="display: flex; justify-content: center;"
+  )
     v-flex(
       sm4
+      xs10
       v-if="!playersReady"
     )
       game-menu
 
     v-flex(
       sm6
+      xs12
       v-else
     )
       game-board

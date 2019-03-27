@@ -137,4 +137,10 @@ export default {
 .layout >>> .flex {
   margin: 1px;
 }
+@media screen and (max-width: 700px) {
+  .flex >>> .v-btn.grid {
+    height: 80px;
+    width: 40px !important;
+  }
+}
 </style>
