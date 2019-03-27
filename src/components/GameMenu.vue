@@ -50,7 +50,7 @@ export default {
     },
 
     joinGame() {
-
+      this.$store.dispatch('joinGame', this.gameId);
     },
   },
 };
