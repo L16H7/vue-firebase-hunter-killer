@@ -81,7 +81,7 @@ export default {
     },
 
     fireEnemyGrid(coordinate) {
-      console.log(coordinate);
+      this.$store.dispatch('fireEnemyGrid', coordinate);
     },
   },
 };

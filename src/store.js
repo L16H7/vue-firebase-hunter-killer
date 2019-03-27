@@ -55,6 +55,15 @@ export default new Vuex.Store({
       });
     },
 
+    fireEnemyGrid: ({ state }, coordinate) => {
+      const gameRef = gamesRef.child(state.gameId);
+      const currentPlayer = (state.player === 1) ? 2 : 1;
+      gameRef.update({
+        currentPlayer,
+        lastHit: coordinate,
+      });
+    },
+
     gameUpdated({ commit }, gameId) {
       gamesRef.child(gameId).on('value', (snapshot) => {
         commit('setGame', snapshot.val());
