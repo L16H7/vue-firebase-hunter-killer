@@ -30,7 +30,14 @@
         outline
         ) Enemy attacked {{ enemyAttackedGrid }}!
 
-
+    v-layout(
+      v-if="isGameOver"
+    )
+      v-chip(
+        color="primary"
+        label
+        outline
+      ) {{ whoWin() }}
     v-layout(
       v-for="i in gridsPerRow"
     )
@@ -52,7 +59,7 @@
 export default {
   data: () => ({
     gridsPerRow: 4,
-    position: 0,
+    position: '',
     isPlayerReady: false,
   }),
   computed: {
@@ -75,6 +82,15 @@ export default {
 
     enemyAttackedGrid() {
       return this.$store.state.game.lastHit;
+    },
+
+    isGameOver() {
+      const { lastHit } = this.$store.state.game;
+      const { board } = this.$store.state.game;
+      if (board[lastHit] !== 0) {
+        return board[lastHit];
+      }
+      return '';
     },
   },
   methods: {
@@ -101,6 +117,14 @@ export default {
 
     fireEnemyGrid(coordinate) {
       this.$store.dispatch('fireEnemyGrid', coordinate);
+    },
+
+    whoWin() {
+      const you = this.$store.state.player;
+      if (this.isGameOver === you) {
+        return 'You Lost!';
+      }
+      return 'You Win!';
     },
   },
 };
