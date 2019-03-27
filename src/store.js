@@ -1,15 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import firebase from 'firebase/app';
-import config from './firebaseConfig';
-
-require('firebase/auth');
-require('firebase/database');
+import database from './firebaseConfig';
 
 Vue.use(Vuex);
 
-firebase.initializeApp(config);
-const database = firebase.database();
 const gamesRef = database.ref('games');
 
 export default new Vuex.Store({
