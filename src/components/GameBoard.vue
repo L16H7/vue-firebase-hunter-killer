@@ -13,6 +13,15 @@
       ) Start
 
     v-layout(
+      v-if="!isGameReady"
+    )
+      v-chip(
+        color="primary"
+        label
+        outline
+        ) Waiting for other player...
+
+    v-layout(
       v-for="i in gridsPerRow"
     )
       v-flex(
@@ -21,7 +30,7 @@
       )
         v-btn.grid(
           block
-          :disabled="!isGameReady"
+          :disabled="!isGameReady || !isMyTurn"
           @click="fireEnemyGrid( ((i - 1) * gridsPerRow) + j )"
         )
           span(v-if="!isPlayerReady") {{ ((i - 1) * gridsPerRow) + j }}
@@ -46,6 +55,11 @@ export default {
       const isPlayer2Set = board.indexOf(2) > -1;
 
       return (isPlayer1Set && isPlayer2Set);
+    },
+
+    isMyTurn() {
+      return (this.$store.state.game.currentPlayer
+         === this.$store.state.player);
     },
   },
   methods: {

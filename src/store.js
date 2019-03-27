@@ -30,6 +30,7 @@ export default new Vuex.Store({
       gamesRef.child(gameId).set({
         board: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         playersReady: false,
+        currentPlayer: 1,
       });
       commit('setGameId', gameId);
       commit('setPlayer', 1);
