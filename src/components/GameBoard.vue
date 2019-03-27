@@ -22,6 +22,16 @@
         ) Waiting for other player...
 
     v-layout(
+      v-if="isGameReady && isMyTurn"
+    )
+      v-chip(
+        color="primary"
+        label
+        outline
+        ) Enemy attacked {{ enemyAttackedGrid }}!
+
+
+    v-layout(
       v-for="i in gridsPerRow"
     )
       v-flex(
@@ -32,6 +42,7 @@
           block
           :disabled="!isGameReady || !isMyTurn"
           @click="fireEnemyGrid( ((i - 1) * gridsPerRow) + j )"
+          :class="getColor( ((i - 1) * gridsPerRow) + j )"
         )
           span(v-if="!isPlayerReady") {{ ((i - 1) * gridsPerRow) + j }}
           span(v-else)
@@ -61,6 +72,10 @@ export default {
       return (this.$store.state.game.currentPlayer
          === this.$store.state.player);
     },
+
+    enemyAttackedGrid() {
+      return this.$store.state.game.lastHit;
+    },
   },
   methods: {
     itemCountInRow(index) {
@@ -69,6 +84,10 @@ export default {
 
     getIcon(coordinate) {
       return (coordinate === parseInt(this.position, 10)) ? 'directions_boat' : 'waves';
+    },
+
+    getColor(coordinate) {
+      return (coordinate === this.enemyAttackedGrid) ? 'red' : '';
     },
 
     setPlayerPosition() {
