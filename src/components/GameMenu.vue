@@ -48,11 +48,12 @@ export default {
       const gameId = Math.random().toString(36).substring(7).toUpperCase();
       this.$store.dispatch('createGame', gameId);
 
-      this.$store.dispatch('listenForGames');
+      this.$store.dispatch('gameUpdated', gameId);
     },
 
     joinGame() {
       this.$store.dispatch('joinGame', this.gameId);
+      this.$store.dispatch('gameUpdated', this.gameId);
     },
   },
 };

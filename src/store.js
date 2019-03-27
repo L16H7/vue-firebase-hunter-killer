@@ -8,9 +8,14 @@ const gamesRef = database.ref('games');
 
 export default new Vuex.Store({
   state: {
+    game: {},
     gameId: '',
   },
   mutations: {
+    setGame: (state, game) => {
+      state.game = game;
+    },
+
     setGameId: (state, gameId) => {
       state.gameId = gameId;
     },
@@ -31,9 +36,9 @@ export default new Vuex.Store({
       });
     },
 
-    listenForGames({ state }) {
-      gamesRef.child(state.gameId).on('child_changed', (snapshot) => {
-        console.log(snapshot.val());
+    gameUpdated({ commit }, gameId) {
+      gamesRef.child(gameId).on('value', (snapshot) => {
+        commit('setGame', snapshot.val());
       });
     },
   },
