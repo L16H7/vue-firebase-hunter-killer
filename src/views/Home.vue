@@ -8,14 +8,17 @@
 
     v-flex(
       v-else
-    ) gameboard
+    )
+      game-board
 </template>
 <script>
 import GameMenu from '@/components/GameMenu.vue';
+import GameBoard from '@/components/GameBoard.vue';
 
 export default {
   components: {
     GameMenu,
+    GameBoard,
   },
   computed: {
     playersReady() {
