@@ -36,5 +36,11 @@ export default new Vuex.Store({
         playersReady: true,
       });
     },
+
+    listenForGames({ state }) {
+      gamesRef.child(state.gameId).on('child_changed', (snapshot) => {
+        console.log(snapshot.val());
+      });
+    },
   },
 });

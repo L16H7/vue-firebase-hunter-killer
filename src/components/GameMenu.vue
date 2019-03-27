@@ -47,6 +47,8 @@ export default {
     createGame() {
       const gameId = Math.random().toString(36).substring(7).toUpperCase();
       this.$store.dispatch('createGame', gameId);
+
+      this.$store.dispatch('listenForGames');
     },
 
     joinGame() {
