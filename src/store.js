@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     game: {},
     gameId: '',
+    player: 0, // Player1 => 1, Player2 => 2
   },
   mutations: {
     setGame: (state, game) => {
@@ -19,6 +20,10 @@ export default new Vuex.Store({
     setGameId: (state, gameId) => {
       state.gameId = gameId;
     },
+
+    setPlayer: (state, player) => {
+      state.player = player;
+    },
   },
   actions: {
     createGame: ({ commit }, gameId) => {
@@ -27,12 +32,25 @@ export default new Vuex.Store({
         playersReady: false,
       });
       commit('setGameId', gameId);
+      commit('setPlayer', 1);
     },
 
-    joinGame: async (action, gameId) => {
+    joinGame: async ({ commit }, gameId) => {
       const gameRef = gamesRef.child(gameId);
       gameRef.update({
         playersReady: true,
+      });
+      commit('setGameId', gameId);
+      commit('setPlayer', 2);
+    },
+
+    setPlayerPosition: ({ state }, position) => {
+      const { board } = state.game;
+      board[position] = state.player;
+
+      const gameRef = gamesRef.child(state.gameId);
+      gameRef.update({
+        board,
       });
     },
 

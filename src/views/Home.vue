@@ -7,6 +7,7 @@
       game-menu
 
     v-flex(
+      sm6
       v-else
     )
       game-board
